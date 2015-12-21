@@ -2,11 +2,9 @@
 def ascii(s):
   return s
 
-MAPPING_DB = 3
-
 class RedisIDAssigner(object):
   """
-  assigns ids to object using a sqlite database
+  assigns ids to object using a redis database
   """
   def __init__(self):
     import redis
@@ -14,7 +12,7 @@ class RedisIDAssigner(object):
 
     c = caleydo_server.config.view('caleydo_data_redis')
 
-    self._db = redis.Redis(host=c.hostname, port=c.port, db=MAPPING_DB)
+    self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
 
   @staticmethod
   def to_forward_key(idtype, identifier):
