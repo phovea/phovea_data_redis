@@ -1,0 +1,38 @@
+{
+  "name": "caleydo_data_redis",
+  "version": "0.0.1",
+  "license" : "SEE LICENSE IN LICENSE",
+  "repository": "Caleydo/caleydo_data_redis",
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "caleydo_server": "*"
+  },
+  "caleydo": {
+    "plugins": {
+      "python": [
+        {
+          "type": "manager",
+          "id": "idmanager",
+          "file": "assigner",
+          "priority": -5,
+          "singleton": true
+        }
+      ]
+    },
+    "dependencies": {
+      "python": {
+        "redis": "==2.10.5"
+      },
+      "debian": {
+        "redis-server": ""
+      },
+      "redhat": {
+        "redis-server": ""
+      }
+    }
+  },
+  "publishConfig": {
+    "registry": "http://registry.caleydo.org/"
+  }
+}
