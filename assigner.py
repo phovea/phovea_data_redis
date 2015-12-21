@@ -12,6 +12,7 @@ class RedisIDAssigner(object):
 
     c = caleydo_server.config.view('caleydo_data_redis')
 
+    #print c.hostname, c.port, c.db
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
 
   @staticmethod
@@ -35,18 +36,19 @@ class RedisIDAssigner(object):
     """
     idtype = ascii(idtype)
 
-    before = self._db.get(idtype)
+    before = self._db.get(idtype) if self._db.exists(idtype) else self._db.decr(idtype) #initialize with -1
     def lookup(id):
       key = self.to_forward_key(idtype, id)
-      if self._db.exists(key):
-        return int(self._db.get(key))
+      i = self._db.get(key)
+      if i is not None:
+        return int(i)
       i = self._db.incr(idtype)
       self._db.set(key,i)
       self._db.set(self.to_backward_key(idtype, i),str(id))
       return i
     r = map(lookup, ids)
 
-    after = self._db.get(idtype)
+    after = int(self._db.get(idtype))
     if before != after:
       print 'create',idtype,before,after
 
