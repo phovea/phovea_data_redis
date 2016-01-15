@@ -30,6 +30,9 @@
       "redhat": {
         "redis-server": ""
       }
+    },
+    "scripts": {
+      "pre_start": "sudo service redis-server start"
     }
   },
   "publishConfig": {
