@@ -10,7 +10,7 @@ class RedisIDAssigner(object):
     import redis
     import caleydo_server.config
 
-    c = caleydo_server.config.view('caleydo_data_redis')
+    c = caleydo_server.config.view('caleydo_data_redis.assigner')
 
     #print c.hostname, c.port, c.db
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
@@ -57,4 +57,3 @@ class RedisIDAssigner(object):
 def create():
   print 'create redis assigner'
   return RedisIDAssigner()
-

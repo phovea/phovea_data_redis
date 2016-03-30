@@ -17,6 +17,21 @@
           "file": "assigner",
           "priority": -5,
           "singleton": true
+        },
+        {
+          "type": "manager",
+          "id": "mappingmanager",
+          "file": "mapper",
+          "priority": -5,
+          "singleton": true
+        },
+        {
+          "type": "mapping_table",
+          "file": "mapping_table",
+          "mappings": [
+            "Ensembl2UniProt",
+            "UniProt2Ensembl"
+          ]
         }
       ]
     },
