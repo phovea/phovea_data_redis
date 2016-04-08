@@ -3,7 +3,7 @@ def ascii(s):
   return s
 
 import logging
-_log = logging.getLogger('caleydo_data_redis.' + __name__)
+_log = logging.getLogger(__name__)
 
 class RedisIDAssigner(object):
   """
