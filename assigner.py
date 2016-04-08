@@ -2,6 +2,9 @@
 def ascii(s):
   return s
 
+import logging
+_log = logging.getLogger('caleydo_data_redis.' + __name__)
+
 class RedisIDAssigner(object):
   """
   assigns ids to object using a redis database
@@ -50,10 +53,10 @@ class RedisIDAssigner(object):
 
     after = int(self._db.get(idtype))
     if before != after:
-      print 'create',idtype,before,after
+      _log.debug('create %s %d!=%d',idtype,before,after)
 
     return r
 
 def create():
-  print 'create redis assigner'
+  _log.info('create redis assigner')
   return RedisIDAssigner()
