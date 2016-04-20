@@ -39,7 +39,7 @@ class RedisIDAssigner(object):
     """
     idtype = ascii(idtype)
 
-    before = self._db.get(idtype) if self._db.exists(idtype) else self._db.decr(idtype) #initialize with -1
+    before = int(self._db.get(idtype) if self._db.exists(idtype) else self._db.decr(idtype)) #initialize with -1
     def lookup(id):
       key = self.to_forward_key(idtype, id)
       i = self._db.get(key)
