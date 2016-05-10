@@ -1,7 +1,16 @@
 Caleydo Data Redis
 ==================
 
-[Redis](http://redislabs.com/) based id manager. In the long run a key-value store adapter
+Data provider plugin for loading data stored in a [Redis in-memory database](http://redis.io/).
+
+This plugin is part of the [Caleydo Web platform](http://caleydo.org/documentation).
+
+![Caleydo Logo](http://caleydo.org/assets/images/logos/caleydo.svg)
+
+Usage Information
+-----------------
+
+The plugin is currently used to load ID mapping files.
 
 flush mapping db:
 ```bash
