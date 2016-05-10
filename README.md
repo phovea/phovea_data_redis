@@ -10,3 +10,6 @@ redis-cli
 select 3
 flushall
 ```
+
+To load mapping, put the mapping files in the _data folder and run the following commands within the caleydo_data_redis plugin folder:
+```python load_mappings.py```
