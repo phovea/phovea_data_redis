@@ -4,7 +4,7 @@ Data provider plugin for loading data stored in a [Redis in-memory database](htt
 
 This plugin is part of the [Caleydo Web platform](http://caleydo.org/documentation).
 
-<img src="http://caleydo.org/assets/images/logos/caleydo.svg" width="300">
+<a href="http://www.caleydo.org"><img src="http://caleydo.org/assets/images/logos/caleydo.svg" width="300"></a>
 
 ## Usage Information
 
