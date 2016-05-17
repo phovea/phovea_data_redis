@@ -9,11 +9,11 @@ This plugin is part of **[Caleydo Web](http://caleydo.org/)**, a platform for de
 
 The plugin is currently used to load ID mapping files.
 
-**Load Mapping From File**
+#### Load Mapping From File
 To load mapping, put the mapping folder that includes the mapping txt files in the ```_data``` folder and run the following commands within the ```caleydo_data_redis``` plugin folder:
 ```python load_mappings.py```
 
-**Flush Mapping Database**
+#### Flush Mapping Database
 
 ```bash
 redis-cli
