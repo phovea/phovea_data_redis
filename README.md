@@ -2,7 +2,7 @@
 
 Data provider plugin for loading data stored in a [Redis in-memory database](http://redis.io/).
 
-<a href="https://caleydo.org"><img src="https://caleydo.org/assets/images/logos/caleydo.svg" align="left" width="200px" hspace="10" vspace="6"></a>
+<a href="https://caleydo.org"><img src="http://caleydo.org/assets/images/logos/caleydo.svg" align="left" width="200px" hspace="10" vspace="6"></a>
 This plugin is part of [Caleydo Web](http://caleydo.org/), a platform for developing web-based visualization applications. For tutorials, API docs, and more information about the build and deployment process, see the [documentation page](http://caleydo.org/documentation).
 
 ## Usage Information
