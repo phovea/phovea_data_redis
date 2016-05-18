@@ -1,4 +1,4 @@
-## Caleydo Data Redis Plugin ![Caleydo Web Server Plugin](https://img.shields.io/badge/Caleydo--Web-Server-9E25BD.svg)
+## Caleydo Data Redis Plugin ![Caleydo Web Server Plugin](https://img.shields.io/badge/Caleydo%20Web-Server-9E25BD.svg)
 
 Data provider plugin for loading data stored in a [Redis in-memory database](http://redis.io/) for [Caleydo Web](https://caleydo.org).
 
