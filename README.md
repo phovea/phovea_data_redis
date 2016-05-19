@@ -2,13 +2,6 @@
 
 Data provider plugin for loading data stored in a [Redis in-memory database](http://redis.io/) for [Caleydo Web](https://caleydo.org).
 
-### How to Install
-
-Within the Caleydo Web Development Environment run:
-```
-./manage.sh install caleydo_tooltip
-```
-
 ### How to Use
 
 The plugin is currently used to load ID mapping files.
