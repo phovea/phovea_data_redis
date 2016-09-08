@@ -29,11 +29,11 @@ Usage
 
 The plugin is currently used to load ID mapping files.
 
-#### Load Mapping From File
+### Load Mapping From File
 To load mapping, put the mapping folder that includes the mapping txt files in the ```_data``` folder and run the following commands within the ```caleydo_data_redis``` plugin folder:
 ```python load_mappings.py```
 
-#### Flush Mapping Database
+### Flush Mapping Database
 
 ```bash
 redis-cli
@@ -42,6 +42,22 @@ select 3
 flushall
 ```
 
+Administrating Redis from your host machine
+------------
+
+Follow this steps if you want to administrate the Redis instance that is installed inside the virtual machine (using Vagrant)
+
+1. Download any Redis administration tool (e.g., [Redis Desktop Manager](https://redisdesktop.com/))
+2. Create a new connection, save it, and connect
+```
+host: localhost
+port: 6379
+activate use ssh tunnel
+SSH address: 127.0.0.1
+SSH port: 2222
+SSH user name: vagrant
+SSH password: vagrant
+```
 
 ***
 
