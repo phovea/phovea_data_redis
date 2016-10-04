@@ -60,24 +60,31 @@ class RedisIDAssigner(object):
 
     #assuming incremental ids
     if idtype in self._db:
+      _log.info('clearing %s',idtype)
       self._cache.clear()
       forward_keys = self._db.keys(idtype + '2id.*')
+      _log.debug('found %d forward keys', len(forward_keys))
       self._db.delete(forward_keys)
       backward_keys = self._db.keys('id2' + idtype + '.*')
+      _log.debug('found %d backwards keys', len(backward_keys))
       self._db.delete(backward_keys)
+      _log.debug('deleted %d keys', len(backward_keys)+len(forward_keys))
 
     max_uid = None
     pipe = self._db.pipeline()
 
+    _log.info('%s loading %s keys', idtype, len(mapping))
     for id,uid in mapping:
       key = self.to_forward_key(idtype, id)
       max_uid = uid if max_uid is None else max(uid, max_uid)
-      self._db.set(key, uid)
-      self._db.set(self.to_backward_key(idtype, uid), str(id))
+      pipe.set(key, uid)
+      pipe.set(self.to_backward_key(idtype, uid), str(id))
 
     pipe.set(idtype, max_uid)
+    _log.debug('flushing')
 
     pipe.execute()
+    _log.debug('flushed')
 
   def __call__(self, ids, idtype):
     """
