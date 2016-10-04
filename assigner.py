@@ -69,6 +69,10 @@ class RedisIDAssigner(object):
       _log.debug('found %d backwards keys', len(backward_keys))
       self._db.delete(backward_keys)
       _log.debug('deleted %d keys', len(backward_keys)+len(forward_keys))
+      del self._db[idtype]
+
+    if len(mapping) == 0:
+      return #no mappings to load
 
     max_uid = None
     pipe = self._db.pipeline()
