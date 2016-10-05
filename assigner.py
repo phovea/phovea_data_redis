@@ -1,4 +1,3 @@
-import functools32
 import logging
 _log = logging.getLogger(__name__)
 
