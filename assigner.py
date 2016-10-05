@@ -23,7 +23,7 @@ class RedisIDAssigner(object):
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
 
     from werkzeug.contrib.cache import SimpleCache
-    self._cache = SimpleCache(threshold=16384)
+    self._cache = SimpleCache(threshold=c.cache)
 
   @staticmethod
   def to_forward_key(idtype, identifier):
@@ -53,11 +53,12 @@ class RedisIDAssigner(object):
         not_cached.append(k)
         not_cached_indices.append(i)
 
-    values = self._db.mget(not_cached)
-    for k, i, v in izip(not_cached, not_cached_indices, values):
-      if v:
-        self._cache.set(k, v)
-        result[i] = v
+    if len(not_cached) > 0:
+      values = self._db.mget(not_cached)
+      for k, i, v in izip(not_cached, not_cached_indices, values):
+        if v:
+          self._cache.set(k, v)
+          result[i] = v
     return result
 
   def unmap(self, uids, idtype):
