@@ -43,26 +43,26 @@ class RedisIDAssigner(object):
     return r
 
   def _get_entries(self, keys):
-    result = {}
+    result = []
     not_cached = []
-    for k in keys:
+    not_cached_indices = []
+    for i,k in enumerate(keys):
       cached = self._cache.get(k)
-      if cached is not None:  # cached
-        result[k] = self._cache.get(k)
-      else:
+      result.append(cached)
+      if cached is None:
         not_cached.append(k)
+        not_cached_indices.append(i)
 
     values = self._db.mget(not_cached)
-    for k, v in izip(not_cached, values):
+    for k, i, v in izip(not_cached, not_cached_indices, values):
       if v:
         self._cache.set(k, v)
-        result[k] = v
+        result[i] = v
     return result
 
   def unmap(self, uids, idtype):
     idtype = ascii(idtype)
-    entries = self._get_entries((self.to_backward_key(idtype, id) for id in uids))
-    return [entries.get(self.to_backward_key(idtype, id), None) for id in uids]
+    return self._get_entries((self.to_backward_key(idtype, id) for id in uids))
 
   def load(self, idtype, mapping):
     """
@@ -114,20 +114,19 @@ class RedisIDAssigner(object):
     before = int(self._db.get(idtype) if idtype in self._db else self._db.decr(idtype))  # initialize with -1
     entries = self._get_entries((self.to_forward_key(idtype, id) for id in ids))
 
-    def lookup(id):
-      key = self.to_forward_key(idtype, id)
-      i = entries.get(key, None)
-      if i is not None:
-        return int(i)
-      i = self._db.incr(idtype)
-      self._db.set(key, i)
-      self._cache.set(key, i)
-      back_key = self.to_backward_key(idtype, i)
-      self._db.set(back_key, str(id))
-      self._cache.set(back_key, str(id))
-      return i
+    def create_entry(i, entry):
+      if entry is None:
+        id = ids[i]
+        key = self.to_forward_key(idtype, id)
+        entry = self._db.incr(idtype)
+        self._db.set(key, entry)
+        self._cache.set(key, entry)
+        back_key = self.to_backward_key(idtype, entry)
+        self._db.set(back_key, str(id))
+        self._cache.set(back_key, str(id))
+      return entry
 
-    r = map(lookup, ids)
+    r = [int(create_entry(i, entry)) for i, entry in enumerate(entries)]
 
     after = int(self._db.get(idtype))
     if before != after:
