@@ -111,6 +111,8 @@ class RedisIDAssigner(object):
      return the integer index ids for the given ids in the given idtype
     """
     idtype = ascii(idtype)
+    if not isinstance(ids, list):
+      ids = list(ids) #maybe a generator
 
     before = int(self._db.get(idtype) if idtype in self._db else self._db.decr(idtype))  # initialize with -1
     entries = self._get_entries((self.to_forward_key(idtype, id) for id in ids))
