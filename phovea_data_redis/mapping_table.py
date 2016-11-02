@@ -8,9 +8,9 @@ class RedisMappingTable(object):
   """
   def __init__(self):
     import redis
-    import caleydo_server.config
+    import phovea_server.config
 
-    c = caleydo_server.config.view('caleydo_data_redis.mapping')
+    c = phovea_server.config.view('phovea_data_redis.mapping')
 
     #print c.hostname, c.port, c.db
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
