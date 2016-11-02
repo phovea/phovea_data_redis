@@ -1,60 +1,35 @@
 {
-  "name": "caleydo_data_redis",
+  "files": [
+    "src",
+    "__init__.py",
+    "__main__.py",
+    "build",
+    "requirements.txt",
+    "requirements_dev.txt",
+    "debian_packages.txt",
+    "redhat_packages.txt",
+    "assets"
+  ],
+  "scripts": {
+    "check": "flake8",
+    "pretest": "npm run check",
+    "test": "python setup.py test"
+  },
+  "name": "phovea_data_redis",
   "description": "Data provider plugin for loading data stored in a Redis in-memory database.",
+  "homepage": "https://phovea.caleydo.org",
   "version": "0.0.1",
-  "license" : "SEE LICENSE IN LICENSE",
-  "repository": "Caleydo/caleydo_data_redis",
-  "dependencies": {
+  "author": {
+    "name": "The Caleydo Team",
+    "email": "contact@caleydo.org",
+    "url": "https://caleydo.org"
   },
-  "peerDependencies": {
-    "caleydo_server": "*"
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/phovea/phovea_data_redis/issues"
   },
-  "caleydo": {
-    "type": "plugin",
-    "category": "python_data",
-    "plugins": {
-      "python": [
-        {
-          "type": "manager",
-          "id": "idmanager",
-          "file": "assigner",
-          "priority": -5,
-          "singleton": true
-        },
-        {
-          "type": "manager",
-          "id": "mappingmanager",
-          "file": "mapper",
-          "priority": -5,
-          "singleton": true
-        },
-        {
-          "type": "mapping_table",
-          "file": "mapping_table",
-          "mappings": [
-            "Ensembl2UniProt",
-            "UniProt2Ensembl"
-          ]
-        }
-      ]
-    },
-    "dependencies": {
-      "python": {
-        "redis": "==2.10.5"
-      },
-      "debian": {
-        "redis-server": ""
-      },
-      "redhat": {
-        "redis": ""
-      }
-    },
-    "scripts": {
-      "pre_start": "sudo service redis-server start",
-      "pre_start_redhat": "sudo service redis start"
-    }
-  },
-  "publishConfig": {
-    "registry": "http://registry.caleydo.org/"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phovea/phovea_data_redis.git"
   }
 }

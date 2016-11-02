@@ -1,0 +1,46 @@
+{
+  "generator-phovea": {
+    "type": "server",
+    "name": "phovea_data_redis",
+    "author": "The Caleydo Team",
+    "githubAccount": "phovea",
+    "slibraries": [
+      "redis"
+    ],
+    "smodules": [
+      "phovea_server"
+    ],
+    "sextensions": [
+      {
+        "type": "manager",
+        "id": "idmanager",
+        "module": "assigner",
+        "extras": {
+          "priority": -5,
+          "singleton": true
+        }
+      },
+      {
+        "type": "manager",
+        "id": "mappingmanager",
+        "module": "mapper",
+        "extras": {
+          "priority": -5,
+          "singleton": true
+        }
+      },
+      {
+        "type": "mapping_table",
+        "id": "phovea_data_redis",
+        "module": "mapping_table",
+        "extras": {
+          "mappings": [
+            "Ensembl2UniProt",
+            "UniProt2Ensembl"
+          ]
+        }
+      }
+    ],
+    "today": "Wed, 02 Nov 2016 13:20:33 GMT"
+  }
+}
