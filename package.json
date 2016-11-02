@@ -13,7 +13,9 @@
   "scripts": {
     "check": "flake8",
     "pretest": "npm run check",
-    "test": "python setup.py test"
+    "test": "python setup.py test",
+    "predist": "npm run test",
+    "dist": "python setup.py bdist_egg"
   },
   "name": "phovea_data_redis",
   "description": "Data provider plugin for loading data stored in a Redis in-memory database.",
