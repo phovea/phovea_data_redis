@@ -26,8 +26,6 @@ Building
 npm run build
 ```
 
-
-
 Usage
 ------------
 

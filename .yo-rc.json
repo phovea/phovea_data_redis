@@ -4,12 +4,6 @@
     "name": "phovea_data_redis",
     "author": "The Caleydo Team",
     "githubAccount": "phovea",
-    "slibraries": [
-      "redis"
-    ],
-    "smodules": [
-      "phovea_server"
-    ],
     "sextensions": [
       {
         "type": "manager",
@@ -41,6 +35,17 @@
         }
       }
     ],
-    "today": "Wed, 02 Nov 2016 13:20:33 GMT"
+    "today": "Wed, 02 Nov 2016 13:20:33 GMT",
+    "modules": [
+      "phovea_server"
+    ],
+    "libraries": [
+      "redis"
+    ],
+    "unknown": {
+      "requirements": [],
+      "debianPackages": [],
+      "redhatPackages": []
+    }
   }
 }
