@@ -1,4 +1,4 @@
-import caleydo_server.plugin
+import phovea_server.plugin
 
 def ascii(s):
   return s
@@ -20,7 +20,7 @@ class MappingManager(object):
   assigns ids to object using a redis database
   """
   def __init__(self):
-    mappers = [MappingTable(c) for c in caleydo_server.plugin.list('mapping_table')]
+    mappers = [MappingTable(c) for c in phovea_server.plugin.list('mapping_table')]
     self.mappers = { }
     for m in mappers:
       for mapping in m.mappings:
