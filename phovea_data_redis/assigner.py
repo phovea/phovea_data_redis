@@ -1,7 +1,8 @@
 import logging
+from itertools import izip
+
 
 _log = logging.getLogger(__name__)
-from itertools import izip
 
 
 def ascii(s):
@@ -46,7 +47,7 @@ class RedisIDAssigner(object):
     result = []
     not_cached = []
     not_cached_indices = []
-    for i,k in enumerate(keys):
+    for i, k in enumerate(keys):
       cached = self._cache.get(k)
       result.append(cached)
       if cached is None:
@@ -112,7 +113,7 @@ class RedisIDAssigner(object):
     """
     idtype = ascii(idtype)
     if not isinstance(ids, list):
-      ids = list(ids) #maybe a generator
+      ids = list(ids)  # maybe a generator
 
     before = int(self._db.get(idtype) if idtype in self._db else self._db.decr(idtype))  # initialize with -1
     entries = self._get_entries((self.to_forward_key(idtype, id) for id in ids))
