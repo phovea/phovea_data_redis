@@ -1,12 +1,12 @@
 {
   "assigner": {
-    "host": "localhost",
+    "hostname": "localhost",
     "port": 6379,
     "db": 3,
     "cache": 65536
   },
   "mapping": {
-    "host": "localhost",
+    "hostname": "localhost",
     "port": 6379,
     "db": 4
   }
