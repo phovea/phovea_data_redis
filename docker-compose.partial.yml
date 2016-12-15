@@ -1,7 +1,7 @@
 version: '2.0'
 services:
-  api:
+  _host:
     links:
-    - redis
-  redis:
+    - db_redis:redis
+  db_redis:
     image: redis
