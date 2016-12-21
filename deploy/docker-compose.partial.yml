@@ -4,4 +4,4 @@ services:
     links:
     - db_redis:redis
   db_redis:
-    image: redis
+    image: redis:3.2-alpine
