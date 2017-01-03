@@ -1,0 +1,5 @@
+version: '2.0'
+services:
+  db_redis:
+    ports:
+      - '6379:6379'
