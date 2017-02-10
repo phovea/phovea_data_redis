@@ -20,13 +20,16 @@ def _get_assigner_db():
 def _get_mapping_db():
   return _get_db('phovea_data_redis.mapping')
 
+
 def remove_all_ids():
   db = _get_assigner_db()
   db.flushdb()
 
+
 def remove_all_mappings():
   db = _get_mapping_db()
   db.flushdb()
+
 
 def load_ids_from_file(idtype, file_name, set_max=True):
   db = _get_assigner_db()
