@@ -1,3 +1,4 @@
+from __future__ import print_function
 import redis
 import os
 
@@ -6,7 +7,7 @@ db = redis.Redis(host='localhost', port=6379, db=4)
 
 def load_file(file_name):
   name, _ = os.path.splitext(os.path.basename(file_name))
-  print 'loading ' + file_name + ' ' + name
+  print('loading ' + file_name + ' ' + name)
   with open(file_name, 'r') as f:
     for line in f:
       parts = [s.strip() for s in line.split('\t')]
