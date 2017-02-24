@@ -1,3 +1,8 @@
+import logging
+
+_log = logging.getLogger(__name__)
+
+
 def create_db():
   import redis
   import phovea_server.config
@@ -40,6 +45,7 @@ def _discover_mappings():
   for key in keys:
     key = key[len('mappingFrom') + 1:]
     parts = key.split('2')
+    _log.info('loading redis mapping table from %s to %s', parts[0], parts[1])
     yield RedisMappingTable(parts[0], parts[1])
 
 
