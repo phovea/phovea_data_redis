@@ -43,6 +43,8 @@ def load_ids_from_file(idtype, file_name, set_max=True):
         max_uid = uid
       key = '{}2id.{}'.format(idtype, id)
       db.set(key, uid)
+      key = 'id2{}.{}'.format(idtype, uid)
+      db.set(key, id)
   if set_max:
     db.set(idtype, max_uid + 1)
 
