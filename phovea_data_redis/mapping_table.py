@@ -17,33 +17,26 @@ class RedisMappingTable(object):
   def __init__(self, from_idtype, to_idtype):
     self.from_idtype = from_idtype
     self.to_idtype = to_idtype
-    self._map = None
-
-  def _load(self):
-    from itertools import izip
-    db = create_db()
-    prefix = '{}2{}.'.format(self.from_idtype, self.to_idtype)
-    keys = [k for k in db.scan_iter(match=prefix + '*')]
-    values = db.mget(keys)
-
-    self._map = dict()
-    prefix_length = len(prefix)
-    for key, value in izip(keys, values):
-      from_id = key[prefix_length + 1:]
-      self._map[from_id] = value.split(';')
 
   def __call__(self, ids):
-    if not self._map:
-      self._load()
+    db = create_db()
 
-    return [self._map.get(id, None) for id in ids]
+    def map_impl(id):
+      key = '{}2{}.{}'.format(self.from_idtype, self.to_idtype, id)
+      v = db.get(key) or ''
+      return v.split(';')
+
+    return [map_impl(id) for id in ids]
 
 
 def _discover_mappings():
   db = create_db()
-  keys = [k for k in db.scan_iter(match='mappingFrom*')]
-  for key in keys:
-    key = key[len('mappingFrom') + 1:]
+  mappings = db.get('mappings')
+  _log.info('found %s', mappings)
+  if not mappings:
+    return
+  mappings = [r for r in mappings.split(';') if r.strip()]
+  for key in mappings:
     parts = key.split('2')
     _log.info('loading redis mapping table from %s to %s', parts[0], parts[1])
     yield RedisMappingTable(parts[0], parts[1])
@@ -54,7 +47,7 @@ class RedisMappingProvider(object):
     self._mappings = list(_discover_mappings())
 
   def __iter__(self):
-    return iter(self._mappings)
+    return iter(((f.from_idtype, f.to_idtype, f) for f in self._mappings))
 
 
 def create():
