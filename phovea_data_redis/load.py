@@ -50,6 +50,7 @@ def load_ids_from_file(idtype, file_name, set_max=True):
 def load_mapping_from_file(from_idtype, to_idtype, file_name):
   db = _get_mapping_db()
   _log.info('loading mapping from %s -> %s from %s', from_idtype, to_idtype, file_name)
+  db.set('mappingFrom{}2{}'.format(from_idtype, to_idtype), to_idtype)
   with open(file_name, 'r', encoding='utf-8') as f:
     for line in f:
       [from_id, to_id] = line.split('\t')
