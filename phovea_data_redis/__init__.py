@@ -10,7 +10,7 @@ def phovea(registry):
   register extension points
   :param registry:
   """
-  registry.append('manager', 'idmanager', 'phovea_data_redis.assigner',dict(priority=-5, singleton=True))
+  registry.append('manager', 'idmanager', 'phovea_data_redis.assigner', dict(priority=-5, singleton=True))
   registry.append('mapping_provider', 'phovea_data_redis', 'phovea_data_redis.mapping_table')
   pass
 
