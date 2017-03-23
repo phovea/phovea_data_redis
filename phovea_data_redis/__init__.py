@@ -10,25 +10,8 @@ def phovea(registry):
   register extension points
   :param registry:
   """
-  registry.append('manager', 'idmanager', 'phovea_data_redis.assigner',
-                  {
-                      'priority': -5,
-                      'singleton': True
-                  })
-
-  registry.append('manager', 'mappingmanager', 'phovea_data_redis.mapper',
-                  {
-                      'priority': -5,
-                      'singleton': True
-                  })
-
-  registry.append('mapping_table', 'phovea_data_redis', 'phovea_data_redis.mapping_table',
-                  {
-                      'mappings': [
-                          'Ensembl2UniProt',
-                          'UniProt2Ensembl'
-                      ]
-                  })
+  registry.append('manager', 'idmanager', 'phovea_data_redis.assigner', dict(priority=-5, singleton=True))
+  registry.append('mapping_provider', 'phovea_data_redis', 'phovea_data_redis.mapping_table')
   pass
 
 
