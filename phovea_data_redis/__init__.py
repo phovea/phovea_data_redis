@@ -12,6 +12,7 @@ def phovea(registry):
   """
   registry.append('manager', 'idmanager', 'phovea_data_redis.assigner', dict(priority=-5, singleton=True))
   registry.append('mapping_provider', 'phovea_data_redis', 'phovea_data_redis.mapping_table')
+  registry.append('manager', 'cachemanager', 'phovea_data_redis.cache', dict(priority=-5, singleton=True))
   pass
 
 

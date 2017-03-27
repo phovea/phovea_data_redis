@@ -9,5 +9,11 @@
     "hostname": "redis",
     "port": 6379,
     "db": 4
+  },
+  "cache": {
+    "hostname": "redis",
+    "port": 6379,
+    "db": 5,
+    "timeout": 600
   }
 }
