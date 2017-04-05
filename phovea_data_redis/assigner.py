@@ -1,6 +1,5 @@
 import logging
-from itertools import izip
-
+from itertools import izip, islice
 
 _log = logging.getLogger(__name__)
 
@@ -29,6 +28,11 @@ class RedisIDAssigner(object):
   @staticmethod
   def to_forward_key(idtype, identifier):
     return ascii(idtype + '2id.' + str(identifier))
+
+  @staticmethod
+  def from_forward_key(idtype, forward_key):
+    prefix = idtype + '2id.'
+    return forward_key[len(prefix):]
 
   @staticmethod
   def to_backward_key(idtype, id):
@@ -137,6 +141,20 @@ class RedisIDAssigner(object):
       _log.debug('create %s %d!=%d', idtype, before, after)
 
     return r
+
+  def search(self, idtype, query, max_results=None):
+    """
+    searches for matches in the names of the given idtype
+    :param idtype:
+    :param query:
+    :param max_results
+    :return:
+    """
+    query = ''.join(('[' + l + u + ']' for l, u in izip(query.upper(), query.lower())))
+    match = self.to_forward_key(idtype, '*' + query + '*')
+    keys = [k for k in islice(self._db.scan_iter(match=match), max_results)]
+    ids = self._get_entries(keys)
+    return [dict(id=int(id), name=self.from_forward_key(idtype, key)) for key, id in izip(keys, ids)]
 
 
 def create():
