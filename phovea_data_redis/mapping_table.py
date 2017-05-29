@@ -99,8 +99,7 @@ def _discover_mappings():
     _log.info('loading redis mapping table from %s to %s', parts[0], parts[1])
     from_idtype = parts[0]
     to_idtype = parts[1]
-    yield (
-    CachedRedisMappingTable(from_idtype, to_idtype, db, keys) if cached else RedisMappingTable(from_idtype, to_idtype))
+    yield (CachedRedisMappingTable(from_idtype, to_idtype, db, keys) if cached else RedisMappingTable(from_idtype, to_idtype))
 
 
 class RedisMappingProvider(object):
