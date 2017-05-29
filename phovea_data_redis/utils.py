@@ -9,8 +9,7 @@ def wait_for_redis_ready(db, timeout=None):
 
   _log.info('check if redis is ready')
   start_time = time.time()
-  while (timeout is None or
-               time.time() - start_time < timeout):
+  while timeout is None or time.time() - start_time < timeout:
     try:
       db.dbsize()
     except redis.ResponseError as exc:
