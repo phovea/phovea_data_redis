@@ -16,11 +16,13 @@ class RedisIDAssigner(object):
   def __init__(self):
     import redis
     import phovea_server.config
+    from .utils import wait_for_redis_ready
 
     c = phovea_server.config.view('phovea_data_redis.assigner')
 
     # print c.hostname, c.port, c.db
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
+    wait_for_redis_ready(self._db)
 
     from werkzeug.contrib.cache import SimpleCache
     self._cache = SimpleCache(threshold=c.cache)
