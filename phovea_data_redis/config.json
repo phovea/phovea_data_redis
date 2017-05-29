@@ -8,7 +8,8 @@
   "mapping": {
     "hostname": "redis",
     "port": 6379,
-    "db": 4
+    "db": 4,
+    "bulk": true
   },
   "cache": {
     "hostname": "redis",
