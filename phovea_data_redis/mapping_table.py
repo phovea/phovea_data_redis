@@ -1,5 +1,6 @@
 import logging
 from itertools import izip, islice
+from .utils import wait_for_redis_ready
 
 _log = logging.getLogger(__name__)
 
@@ -84,6 +85,7 @@ class CachedRedisMappingTable(object):
 
 def _discover_mappings():
   db = create_db()
+  wait_for_redis_ready(db)
   mappings = db.get('mappings')
   _log.info('found %s', mappings)
   if not mappings:

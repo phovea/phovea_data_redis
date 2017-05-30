@@ -1,4 +1,5 @@
 import logging
+from .utils import wait_for_redis_ready
 
 _log = logging.getLogger(__name__)
 
@@ -16,6 +17,7 @@ class RedisCache(object):
 
     # print c.hostname, c.port, c.db
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db)
+    wait_for_redis_ready(self._db)
     self._default_timeout = c.timeout
 
   def get(self, key):
