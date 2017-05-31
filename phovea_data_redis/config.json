@@ -9,7 +9,7 @@
     "hostname": "redis",
     "port": 6379,
     "db": 4,
-    "bulk": true
+    "bulk": false
   },
   "cache": {
     "hostname": "redis",
