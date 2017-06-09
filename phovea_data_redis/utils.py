@@ -12,11 +12,8 @@ def wait_for_redis_ready(db, timeout=None):
   while timeout is None or time.time() - start_time < timeout:
     try:
       db.dbsize()
-    except redis.ResponseError as exc:
-      if exc.args[0].startswith('LOADING'):
-        _log.info('stall till redis is ready')
-        time.sleep(0.1)
-      else:
-        raise
+    except redis.exceptions.BusyLoadingError:
+      _log.info('stall till redis is ready')
+      time.sleep(0.5)
     else:
         break
