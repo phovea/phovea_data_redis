@@ -16,7 +16,7 @@ def create_db():
   c = _get_config()
 
   # print c.hostname, c.port, c.db
-  return redis.Redis(host=c.hostname, port=c.port, db=c.db)
+  return redis.Redis(host=c.hostname, port=c.port, db=c.db, **c.extras)
 
 
 class RedisMappingTable(object):
