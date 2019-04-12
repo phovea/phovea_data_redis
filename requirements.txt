@@ -1,2 +1,1 @@
-redis==2.10.5
--e git+https://github.com/phovea/phovea_server.git@v5.1.1#egg=phovea_server
+phovea_server>=2.1.0,<2.2.0
