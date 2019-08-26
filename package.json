@@ -2,7 +2,7 @@
   "name": "phovea_data_redis",
   "description": "Data provider plugin for loading data stored in a Redis in-memory database.",
   "homepage": "https://phovea.caleydo.org",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": {
     "name": "The Caleydo Team",
     "email": "contact@caleydo.org",
@@ -34,6 +34,7 @@
     "dist": "python setup.py sdist bdist_wheel",
     "docs": "sphinx-apidoc -o docs -f ./phovea_data_redis && sphinx-build ./docs build/docs",
     "prebuild": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test",
-    "build": "rm -rf build/source && find . -name '*.pyc' -delete && node buildPython.js && cp -r ./phovea_data_redis build/source/"
+    "build": "rm -rf build/source && find . -name '*.pyc' -delete && node buildPython.js && cp -r ./phovea_data_redis build/source/",
+    "publish": "twine upload --repository-url https://upload.pypi.org/legacy/ dist/*"
   }
 }
