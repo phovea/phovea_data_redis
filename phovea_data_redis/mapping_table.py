@@ -1,5 +1,5 @@
 import logging
-from itertools import izip, islice
+from itertools import islice
 from .utils import wait_for_redis_ready
 
 _log = logging.getLogger(__name__)
@@ -42,12 +42,12 @@ class RedisMappingTable(object):
     :return:
     """
     db = create_db()
-    query = ''.join(('[' + l + u + ']' for l, u in izip(query.upper(), query.lower())))
+    query = ''.join(('[' + l + u + ']' for l, u in zip(query.upper(), query.lower())))
     prefix = '{}2{}.'.format(self.from_idtype, self.to_idtype)
     match = '{}*{}*'.format(prefix, query)
     keys = [k for k in islice(db.scan_iter(match=match), max_results)]
     values = db.mget(keys)
-    return [dict(match=key[len(prefix):], to=value) for key, value in izip(keys, values)]
+    return [dict(match=key[len(prefix):], to=value) for key, value in zip(keys, values)]
 
 
 class CachedRedisMappingTable(object):
@@ -62,7 +62,7 @@ class CachedRedisMappingTable(object):
     match = prefix + '*'
     keys = [k for k in fnmatch.filter(all_keys, match)]
     values = db.mget(keys)
-    return {key[len(prefix):]: value for key, value in izip(keys, values)}
+    return {key[len(prefix):]: value for key, value in zip(keys, values)}
 
   def __call__(self, ids):
     def map_impl(id):

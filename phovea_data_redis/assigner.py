@@ -1,5 +1,5 @@
 import logging
-from itertools import izip, islice
+from itertools import islice
 
 _log = logging.getLogger(__name__)
 
@@ -62,7 +62,7 @@ class RedisIDAssigner(object):
 
     if len(not_cached) > 0:
       values = self._db.mget(not_cached)
-      for k, i, v in izip(not_cached, not_cached_indices, values):
+      for k, i, v in zip(not_cached, not_cached_indices, values):
         if v:
           self._cache.set(k, v)
           result[i] = v
@@ -152,11 +152,11 @@ class RedisIDAssigner(object):
     :param max_results
     :return:
     """
-    query = ''.join(('[' + l + u + ']' for l, u in izip(query.upper(), query.lower())))
+    query = ''.join(('[' + l + u + ']' for l, u in zip(query.upper(), query.lower())))
     match = self.to_forward_key(idtype, '*' + query + '*')
     keys = [k for k in islice(self._db.scan_iter(match=match), max_results)]
     ids = self._get_entries(keys)
-    return [dict(id=int(id), name=self.from_forward_key(idtype, key)) for key, id in izip(keys, ids)]
+    return [dict(id=int(id), name=self.from_forward_key(idtype, key)) for key, id in zip(keys, ids)]
 
 
 def create():
