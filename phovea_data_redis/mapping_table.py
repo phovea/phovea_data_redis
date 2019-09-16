@@ -29,10 +29,12 @@ class RedisMappingTable(object):
 
     def map_impl(id):
       key = '{}2{}.{}'.format(self.from_idtype, self.to_idtype, id)
-      v = db.get(key) or ''
+      v = ''
+      if db.get(key) is not None:
+        v = db.get(key).decode('utf-8')
       return v.split(';')
 
-    return [map_impl(id) for id in ids]
+    return [map_impl(id.decode('utf-8')) for id in ids]
 
   def search(self, query, max_results=None):
     """
@@ -69,7 +71,7 @@ class CachedRedisMappingTable(object):
       v = self._cache.get(id, '')
       return v.split(';')
 
-    return [map_impl(id) for id in ids]
+    return [map_impl(id.decode('utf-8')) for id in ids]
 
   def search(self, query, max_results=None):
     """
@@ -86,7 +88,7 @@ class CachedRedisMappingTable(object):
 def _discover_mappings():
   db = create_db()
   wait_for_redis_ready(db)
-  mappings = db.get('mappings')
+  mappings = (db.get('mappings')).decode('utf-8')
   _log.info('found %s', mappings)
   if not mappings:
     return
