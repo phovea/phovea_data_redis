@@ -82,7 +82,7 @@ class CachedRedisMappingTable(object):
     """
     query = query.lower()
     return [dict(match=key, to=self._cache[key]) for key in
-            islice((k for k in self._cache.keys() if query in k.lower()), max_results)]
+            islice((k for k in list(self._cache.keys()) if query in k.lower()), max_results)]
 
 
 def _discover_mappings():
