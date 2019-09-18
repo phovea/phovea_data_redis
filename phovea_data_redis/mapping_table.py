@@ -88,7 +88,9 @@ class CachedRedisMappingTable(object):
 def _discover_mappings():
   db = create_db()
   wait_for_redis_ready(db)
-  mappings = (db.get('mappings')).decode('utf-8')
+  mappings = db.get('mappings')
+  if mappings is not None:
+    mappings.decode('utf-8')
   _log.info('found %s', mappings)
   if not mappings:
     return
