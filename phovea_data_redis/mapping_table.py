@@ -31,10 +31,13 @@ class RedisMappingTable(object):
       key = '{}2{}.{}'.format(self.from_idtype, self.to_idtype, id)
       v = ''
       if db.get(key) is not None:
-        v = db.get(key).decode('utf-8')
+        v = db.get(key)
       return v.split(';')
 
-    return [map_impl(id.decode('utf-8')) for id in ids]
+    # for id in ids:
+    #   if isinstance(id, bytes):
+    #    id.decode('utf-8')
+    return [map_impl(id) for id in ids]
 
   def search(self, query, max_results=None):
     """
