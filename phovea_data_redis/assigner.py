@@ -21,7 +21,7 @@ class RedisIDAssigner(object):
     c = phovea_server.config.view('phovea_data_redis.assigner')
 
     # print c.hostname, c.port, c.db
-    self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db, **c.extras)
+    self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db, charset='utf-8', decode_responses=True, **c.extras)
     wait_for_redis_ready(self._db)
 
     from werkzeug.contrib.cache import SimpleCache

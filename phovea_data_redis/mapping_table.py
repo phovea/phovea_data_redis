@@ -14,9 +14,9 @@ def create_db():
   import redis
 
   c = _get_config()
-
+  _log.error("TEST")
   # print c.hostname, c.port, c.db
-  return redis.Redis(host=c.hostname, port=c.port, db=c.db, **c.extras)
+  return redis.Redis(host=c.hostname, port=c.port, db=c.db, charset='utf-8', decode_responses=True, **c.extras)
 
 
 class RedisMappingTable(object):

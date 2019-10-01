@@ -10,7 +10,7 @@ def _get_db(key):
 
   c = phovea_server.config.view(key)
 
-  return redis.Redis(host=c.hostname, port=c.port, db=c.db)
+  return redis.Redis(host=c.hostname, port=c.port, db=c.db, charset='utf-8', decode_responses=True)
 
 
 def _get_assigner_db():
