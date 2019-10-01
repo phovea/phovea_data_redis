@@ -14,7 +14,7 @@ def create_db():
   import redis
 
   c = _get_config()
-  _log.error("TEST")
+
   # print c.hostname, c.port, c.db
   return redis.Redis(host=c.hostname, port=c.port, db=c.db, charset='utf-8', decode_responses=True, **c.extras)
 
@@ -34,9 +34,6 @@ class RedisMappingTable(object):
         v = db.get(key)
       return v.split(';')
 
-    # for id in ids:
-    #   if isinstance(id, bytes):
-    #    id.decode('utf-8')
     return [map_impl(id) for id in ids]
 
   def search(self, query, max_results=None):
@@ -92,8 +89,6 @@ def _discover_mappings():
   db = create_db()
   wait_for_redis_ready(db)
   mappings = db.get('mappings')
-  # if mappings is not None:
-  #  mappings.decode('utf-8')
   _log.info('found %s', mappings)
   if not mappings:
     return
