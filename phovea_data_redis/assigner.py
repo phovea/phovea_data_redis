@@ -69,7 +69,6 @@ class RedisIDAssigner(object):
     return result
 
   def unmap(self, uids, idtype):
-    idtype = ascii(idtype)
     return self._get_entries((self.to_backward_key(idtype, id) for id in uids))
 
   def load(self, idtype, mapping):
@@ -79,7 +78,6 @@ class RedisIDAssigner(object):
     :param mapping: array of tuples (id, uid)
     :return:
     """
-    idtype = ascii(idtype)
 
     # assuming incremental ids
     if idtype in self._db:
