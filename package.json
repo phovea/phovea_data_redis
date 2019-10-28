@@ -1,6 +1,7 @@
 {
   "name": "phovea_data_redis",
   "description": "Data provider plugin for loading data stored in a Redis in-memory database.",
+  "homepage": "https://phovea.caleydo.org",
   "version": "2.3.1-SNAPSHOT",
   "author": {
     "name": "The Caleydo Team",
