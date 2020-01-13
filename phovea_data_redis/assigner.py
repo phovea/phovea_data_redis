@@ -1,5 +1,5 @@
 import logging
-from itertools import izip, islice
+from itertools import islice
 
 _log = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class RedisIDAssigner(object):
     c = phovea_server.config.view('phovea_data_redis.assigner')
 
     # print c.hostname, c.port, c.db
-    self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db, **c.extras)
+    self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db, charset='utf-8', decode_responses=True, **c.extras)
     wait_for_redis_ready(self._db)
 
     from werkzeug.contrib.cache import SimpleCache
@@ -62,14 +62,13 @@ class RedisIDAssigner(object):
 
     if len(not_cached) > 0:
       values = self._db.mget(not_cached)
-      for k, i, v in izip(not_cached, not_cached_indices, values):
+      for k, i, v in zip(not_cached, not_cached_indices, values):
         if v:
           self._cache.set(k, v)
           result[i] = v
     return result
 
   def unmap(self, uids, idtype):
-    idtype = ascii(idtype)
     return self._get_entries((self.to_backward_key(idtype, id) for id in uids))
 
   def load(self, idtype, mapping):
@@ -79,7 +78,6 @@ class RedisIDAssigner(object):
     :param mapping: array of tuples (id, uid)
     :return:
     """
-    idtype = ascii(idtype)
 
     # assuming incremental ids
     if idtype in self._db:
@@ -152,11 +150,11 @@ class RedisIDAssigner(object):
     :param max_results
     :return:
     """
-    query = ''.join(('[' + l + u + ']' for l, u in izip(query.upper(), query.lower())))
+    query = ''.join(('[' + l + u + ']' for l, u in zip(query.upper(), query.lower())))
     match = self.to_forward_key(idtype, '*' + query + '*')
     keys = [k for k in islice(self._db.scan_iter(match=match), max_results)]
     ids = self._get_entries(keys)
-    return [dict(id=int(id), name=self.from_forward_key(idtype, key)) for key, id in izip(keys, ids)]
+    return [dict(id=int(id), name=self.from_forward_key(idtype, key)) for key, id in zip(keys, ids)]
 
 
 def create():
