@@ -24,7 +24,7 @@ class RedisIDAssigner(object):
     self._db = redis.Redis(host=c.hostname, port=c.port, db=c.db, charset='utf-8', decode_responses=True, **c.extras)
     wait_for_redis_ready(self._db)
 
-    from werkzeug.contrib.cache import SimpleCache
+    from cachelib import SimpleCache
     self._cache = SimpleCache(threshold=c.cache)
 
   @staticmethod
