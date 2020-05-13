@@ -84,5 +84,3 @@ This repository is part of **[Phovea](http://phovea.caleydo.org/)**, a platform 
 [npm-url]: https://npmjs.org/package/phovea_data_redis
 [circleci-image]: https://circleci.com/gh/phovea/phovea_data_redis.svg?style=shield
 [circleci-url]: https://circleci.com/gh/phovea/phovea_data_redis
-[daviddm-image]: https://david-dm.org/phovea/phovea_data_redis/status.svg
-[daviddm-url]: https://david-dm.org/phovea/phovea_data_redis
