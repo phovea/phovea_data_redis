@@ -150,7 +150,7 @@ class RedisIDAssigner(object):
     :param max_results
     :return:
     """
-    query = ''.join(('[' + l + u + ']' for l, u in zip(query.upper(), query.lower())))
+    query = ''.join(('[' + lower + upper + ']' for lower, upper in zip(query.upper(), query.lower())))
     match = self.to_forward_key(idtype, '*' + query + '*')
     keys = [k for k in islice(self._db.scan_iter(match=match), max_results)]
     ids = self._get_entries(keys)
