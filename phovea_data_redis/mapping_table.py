@@ -44,7 +44,7 @@ class RedisMappingTable(object):
     :return:
     """
     db = create_db()
-    query = ''.join(('[' + l + u + ']' for l, u in zip(query.upper(), query.lower())))
+    query = ''.join(('[' + lower + upper + ']' for lower, upper in zip(query.upper(), query.lower())))
     prefix = '{}2{}.'.format(self.from_idtype, self.to_idtype)
     match = '{}*{}*'.format(prefix, query)
     keys = [k for k in islice(db.scan_iter(match=match), max_results)]
