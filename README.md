@@ -1,9 +1,12 @@
-phovea_data_redis
+DEPRECATED: phovea_data_redis
 =====================
 [![Phovea][phovea-image]][phovea-url] [![Build Status][circleci-image]][circleci-url]
 
 
 Data provider plugin for loading data stored in a [Redis in-memory database](http://redis.io/).
+
+ ### DEPRECATION Information
+Please note that this project has been archived and is no longer being maintained. There is an active development under https://github.com/datavisyn/tdp_core and we will also contribute our future changes to it.
 
 Installation
 ------------
